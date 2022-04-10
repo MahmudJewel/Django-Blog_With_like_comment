@@ -1,0 +1,92 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+ <style type="text/css">
+        .registration-form{
+        padding: 50px 0;
+        }
+        .registration-form form{
+        background-color: #fff;
+        max-width: 600px;
+        margin: auto;
+        padding: 50px 70px;
+        border-radius: 30px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+        }
+        .registration-form .form-icon{
+        text-align: center;
+        background-color: #5891ff;
+        border-radius: 50%;
+        font-size: 40px;
+        color: white;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        margin-bottom: 50px;
+        line-height: 100px;
+        }
+        .registration-form .item{
+        border-radius: 20px;
+        margin-bottom: 25px;
+        padding: 10px 20px;
+        }
+        .registration-form .create-account{
+        border-radius: 30px;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #5791ff;
+        border: none;
+        color: white;
+        margin-top: 20px;
+        }
+        @media (max-width: 576px) {
+        .registration-form form{
+        padding: 50px 20px;
+        }
+        .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+        }
+        }
+        </style>
+<body style="background-color: #dee9ff;">
+  <div class="registration-form">
+    
+    <form method="POST" autocomplete="off" enctype="multipart/form-data" class="border border-primary">
+      {% csrf_token %}
+      <h2 class="text-center" >Create Account</h2>
+      <div class="form-icon">
+        <span><i class="fas fa-user-plus"></i></span>
+      </div>
+      {% for field in RegisterForm %}
+        <p>
+          <!-- level & textarea -->
+          {{ field.label_tag }}<br>
+          <div class="form-group">
+            {% render_field field|attr:'required:true'  class="form-control item" %}
+          </div>
+          <!-- help text or suggestions -->
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+
+          <!-- Error message -->
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-block create-account">Create Account</button>
+      </div>
+      <br>
+      <p>Already have an account? <a href="login" class="text-decoration-none">Login</a></p>
+    </form>
+  </div>
+</body>
+{% endblock %}
