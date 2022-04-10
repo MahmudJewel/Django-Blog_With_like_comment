@@ -1,4 +1,18 @@
 {% extends 'home/base.html' %}
 {% block content %}
-<h1>Hello world</h1>
+<div>
+    <div class="container">
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-md-3 border border-primary">
+                <h3>{{blog.title}}</h3> <br>
+                topic: {{blog.category}} <br>
+                by: {{blog.author}} <br>
+                <!-- <a href="/blog/{{blog.id}}/singleBlog">Read more</a> <br> -->
+                <a href="{% url 'singleBlog' blog.id %}">Read more</a> <br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
