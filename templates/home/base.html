@@ -87,7 +87,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <!-- Search button  -->
-          <form class="d-flex mx-md-5" action="/search" method="get">
+          <form class="d-flex mx-md-5" action="/" method="get">
             {% csrf_token %}
             <input
               class="form-control me-2"
@@ -124,7 +124,7 @@
                 {% if '/customer/profile/' in request.path %}
                 active 
                 {% endif %}"
-                href="/customer/profile/{{user.id}}"
+                href="/"
                 >Hello {{user.username}}</a
               >
             </li>
@@ -137,8 +137,8 @@
                   {% endif %}
                 "
                 style="color: aqua"
-                href="/customer/order"
-                >Orders</a
+                href="/"
+                >My blog</a
               >
             </li>
             <li class="nav-item">
@@ -182,22 +182,6 @@
               >
             </li>
             {% endif %}
-            <li class="nav-item">
-              <a
-                class="
-                  nav-link
-                  {% if '/cart' in request.path %}
-                  active
-                  {% endif %}
-                "
-                href="/cart"
-                ><img
-                  src="{% static 'img/cart.png' %}"
-                  height="20px"
-                  width="25px"
-              /></a>
-            </li>
-            <p id="cart-total">{{request.session.cart.keys|length}}</p>
           </ul>
         </div>
       </div>
