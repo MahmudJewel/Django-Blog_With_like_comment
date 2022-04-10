@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # external app 
     'post',
     'home',
+    'authentication',
     
     # 3rd party app 
     'widget_tweaks',
