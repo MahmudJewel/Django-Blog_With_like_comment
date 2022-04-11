@@ -2,6 +2,7 @@
 {% block content %}
 <div>
     <div class="container">
+        <!-- showing single blog  -->
         <div class="row border border-primary">
             <div class="col">
                 <h2>{{blog.title}}</h2> <br>
@@ -11,6 +12,25 @@
                 {{blog.post}}
             </div>
         </div>
+        <br>
+
+        <!-- like unlike button  -->
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'likeLink' blog.id %}" method="post">
+                    {% csrf_token %}
+                    {% if is_liked %}
+                    <button class="btn btn-danger" type="submit">Unlike</button>
+                    {% else %}
+                    <button class="btn btn-primary" type="submit">Like</button>
+                    {% endif %}
+                    likes: <b>{{like_total}}</b> likes
+                </form>
+            </div>
+        </div>
+        <br><br><br>
+
+        <!-- showing all comments  -->
         <div class="row ">
             {% for comment in all_comments %}
             <div class="col">
@@ -20,12 +40,14 @@
             <hr>
             {% endfor %}
         </div>
+
+        <!-- commenting on a post  -->
         <div class="row">
             <div class="col">
                 <form action="" method="post">
                     {% csrf_token %}
                     {{commentForm.as_p}} <br>
-                    <button type="submit" class="btn btn-primary">submit</button>
+                    <button type="submit" class="btn btn-primary" name='commenting'>submit</button>
                 </form>
             </div>
         </div>

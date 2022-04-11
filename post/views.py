@@ -11,22 +11,43 @@ def blogs_single(request, pk):
     blog = Post.objects.get(id=pk)
     commentForm = PFORM.commentForm()
     all_comments = Comment.objects.filter(blog=blog)
+    like_total = blog.likes.count()
+    # like or unlike button logic 
+    if blog.likes.filter(id=request.user.id).exists():
+        is_liked=True
+    else:
+        is_liked=False
+    
     # post a comment 
     if request.method == 'POST':
-        commentForm = PFORM.commentForm(request.POST)
-        if commentForm.is_valid() and request.user.is_authenticated:
-            comment_post = commentForm.save(commit=False)
-            comment_post.author=request.user
-            comment_post.blog = blog
-            comment_post.save()
-            return redirect(request.path_info)
+        if 'commenting' in request.POST:
+            commentForm = PFORM.commentForm(request.POST)
+            if commentForm.is_valid() and request.user.is_authenticated:
+                comment_post = commentForm.save(commit=False)
+                comment_post.author=request.user
+                comment_post.blog = blog
+                comment_post.save()
+                return redirect(request.path_info)
     context = {
         'blog':blog,
         'commentForm':commentForm,
         'all_comments':all_comments,
+        'like_total':like_total,
+        'is_liked':is_liked,
     }
     return render(request, 'blog/single_blog_view.html', context)
 
+# like unlike button 
+def like_view(request, pk):
+    blog = Post.objects.get(id=pk)
+    if blog.likes.filter(id=request.user.id).exists():
+        blog.likes.remove(request.user)
+    else:
+        blog.likes.add(request.user)
+    urll='/'+'blog/'+str(pk)+'/'+'singleBlog'
+    return redirect(urll)
+
+# post a blog 
 def blog_post_view(request):
     blog_post_form = PFORM.blogPostForm()
     if request.method == 'POST':

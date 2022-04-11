@@ -15,7 +15,7 @@ class Category(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, related_name='blogpost_like')
+    likes = models.ManyToManyField(User, related_name='blogpost_like', null=True, blank=True)
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=200, blank=True, null=True)
     post = models.TextField()
