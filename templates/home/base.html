@@ -145,6 +145,19 @@
               <a
                 class="
                   nav-link
+                  {% if '/customer/order' in request.path %}
+                  active 
+                  {% endif %}
+                "
+                style="color: aqua"
+                href="{% url 'post_Blog' %}"
+                >Post a Blog</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="
+                  nav-link
                   {% if '/logout' in request.path %}
                   active
                   {% endif %}

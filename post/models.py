@@ -29,7 +29,7 @@ class Post(models.Model):
         original_slug = slugify(self.title)
         queryset = Post.objects.all().filter(slug__iexact=original_slug).count()
 
-        # if title matches, then modify slug fields 
+        # if title matches, then modify slug fields as title-n
         count = 1
         slug = original_slug
         while(queryset):
