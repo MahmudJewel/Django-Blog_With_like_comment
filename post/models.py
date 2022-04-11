@@ -40,3 +40,11 @@ class Post(models.Model):
         self.slug = slug
         # end modifying slug field 
         super(Post, self).save(*args, **kwargs)
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog= models.ForeignKey(Post, on_delete=models.CASCADE)
+    comment = models.TextField()
+    
+    def __str__(self):
+        return f"{self.author}'s comment on {self.blog}"

@@ -2,13 +2,31 @@
 {% block content %}
 <div>
     <div class="container">
-        <div class="row">
+        <div class="row border border-primary">
             <div class="col">
                 <h2>{{blog.title}}</h2> <br>
                 author: {{blog.author}} <br>
                 topic: {{blog.category}} <br>
                 updated: {{blog.updated}} <br> <br>
                 {{blog.post}}
+            </div>
+        </div>
+        <div class="row ">
+            {% for comment in all_comments %}
+            <div class="col">
+                comment by: {{comment.author}} <br>
+                {{comment.comment}}
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{commentForm.as_p}} <br>
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </form>
             </div>
         </div>
     </div>

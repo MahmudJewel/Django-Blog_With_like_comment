@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from post.models import Post
+from post.models import Post, Comment
 from post import forms as PFORM 
 # Create your views here.
 
@@ -9,8 +9,21 @@ def home_view(request):
 # single blog view 
 def blogs_single(request, pk):
     blog = Post.objects.get(id=pk)
+    commentForm = PFORM.commentForm()
+    all_comments = Comment.objects.filter(blog=blog)
+    # post a comment 
+    if request.method == 'POST':
+        commentForm = PFORM.commentForm(request.POST)
+        if commentForm.is_valid() and request.user.is_authenticated:
+            comment_post = commentForm.save(commit=False)
+            comment_post.author=request.user
+            comment_post.blog = blog
+            comment_post.save()
+            return redirect(request.path_info)
     context = {
         'blog':blog,
+        'commentForm':commentForm,
+        'all_comments':all_comments,
     }
     return render(request, 'blog/single_blog_view.html', context)
 
