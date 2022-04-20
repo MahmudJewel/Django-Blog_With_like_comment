@@ -21,8 +21,10 @@
                     {% csrf_token %}
                     {% if is_liked %}
                     <button class="btn btn-danger" type="submit">Unlike</button>
-                    {% else %}
+                    {% elif  user.is_authenticated %}
                     <button class="btn btn-primary" type="submit">Like</button>
+                    {% else %}
+                    <a class="btn btn-primary" type="">Like</a>
                     {% endif %}
                     likes: <b>{{like_total}}</b> likes
                 </form>
