@@ -9,7 +9,7 @@
                 topic: {{blog.category}} <br>
                 by: {{blog.author}} <br>
                 <!-- <a href="/blog/{{blog.id}}/singleBlog">Read more</a> <br> -->
-                <a href="{% url 'singleBlog' blog.id %}">Read more</a> <br>
+                <a href="{% url 'singleBlog' blog.id %}" class="btn btn-primary m-3">Read more ...</a> <br>
             </div>
             {% endfor %}
         </div>
